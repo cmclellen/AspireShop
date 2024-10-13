@@ -33,12 +33,14 @@
 
     private async Task HandleCheckout()
     {
-        if (customerBasket is not null)
-        {
-            await BasketClient.CheckoutBasketAsync("user");
-        }
+        // if (customerBasket is not null)
+        // {
+        //     await BasketClient.CheckoutBasketAsync("user");
+        // }
 
-        // Preserve query string
-        Navigation.NavigateTo($"/{new Uri(Navigation.Uri).Query}");
+        // // Preserve query string
+        // Navigation.NavigateTo($"/{new Uri(Navigation.Uri).Query}");
+
+        Navigation.NavigateTo("/checkout?buyerId=user");
     }
 }

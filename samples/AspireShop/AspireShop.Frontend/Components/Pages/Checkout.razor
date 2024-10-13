@@ -1,0 +1,55 @@
+﻿@page "/checkout"
+
+@inject BasketServiceClient BasketServiceClient
+@inject NavigationManager Navigation
+
+<PageTitle>Checkout</PageTitle>
+
+
+<div class="container">
+    @if (customerBasket is { Items: var items})
+    {
+      <ul>
+        @foreach (var item in items)
+        {
+                <li>@item.ProductId</li>
+        }
+      </ul>
+
+        <EditForm Model="this" FormName="checkout" OnSubmit="HandleCheckout" data-enhance>
+            <button type="submit" class="align-content-end cart-button">
+                Checkout
+            </button>
+        </EditForm>
+    }
+    else
+    {
+        <p class="catalog-loading">Loading basket…</p>
+    }
+    
+</div>
+
+@code {
+
+    CustomerBasket? customerBasket;
+    bool basketIsAvailable;
+
+    [SupplyParameterFromQuery]
+    public string? BuyerId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        (customerBasket, basketIsAvailable) = await BasketServiceClient.GetBasketAsync(BuyerId!);
+
+        if (customerBasket is null)
+        {
+            return;
+        }
+    }
+
+    private async Task HandleCheckout()
+    {
+        await BasketServiceClient.CheckoutBasketAsync(BuyerId!);
+        Navigation.NavigateTo("/");
+    }
+}
