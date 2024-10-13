@@ -1,0 +1,29 @@
+﻿<div class="grid-item" data-id="@Item.Id">
+  <div class="grid-item-content">
+      <img src="catalog/images/@Item.Id" alt="@Item.Name" class="catalog-item-image" />
+      <div class="quick-view-overlay">
+          <i class="fa fa-search-plus" aria-hidden="true"></i>
+      </div>
+      <div class="grid-item-text">
+          <h4 class="pointer-events-none">@Item.Name</h4>
+          <p class="item-description pointer-events-none">@Item.Description</p>
+          <div class="d-flex justify-space-evenly align-items-center">
+              <p class="item-price pointer-events-none">@Item.Price.ToString("C")</p>
+              @if (BasketIsAvailable)
+              {
+                  <AddToCart Item="Item" />
+              }
+          </div>
+      </div>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public required CatalogItem Item { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public required bool BasketIsAvailable { get; set; }
+}

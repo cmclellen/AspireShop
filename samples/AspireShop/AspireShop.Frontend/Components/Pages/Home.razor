@@ -19,25 +19,7 @@
         <div class="grid">
             @foreach (var item in data)
             {
-                <div class="grid-item" data-id="@item.Id">
-                    <div class="grid-item-content">
-                        <img src="catalog/images/@item.Id" alt="@item.Name" class="catalog-item-image" />
-                        <div class="quick-view-overlay">
-                            <i class="fa fa-search-plus" aria-hidden="true"></i>
-                        </div>
-                        <div class="grid-item-text">
-                            <h4 class="pointer-events-none">@item.Name</h4>
-                            <p class="item-description pointer-events-none">@item.Description</p>
-                            <div class="d-flex justify-space-evenly align-items-center">
-                                <p class="item-price pointer-events-none">@item.Price.ToString("C")</p>
-                                @if (basketIsAvailable)
-                                {
-                                    <AddToCart Item="item" />
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ProductItem Item="item" BasketIsAvailable="basketIsAvailable"></ProductItem>
             }
         </div>
 
